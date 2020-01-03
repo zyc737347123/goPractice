@@ -2,13 +2,23 @@ package main
 
 import (
 	"fmt"
-
-	"github.com/zyc737347123/goPractice/base/funcs"
+	"math"
 )
 
-func main() {
-	f, f2 := funcs.Fibonacci(), funcs.Fibonacci()
-	for i := 0; i < 10; i++ {
-		fmt.Println(f(), f2())
+type ErrNegativeSqrt float64
+
+func (e ErrNegativeSqrt) Error() string {
+	return fmt.Sprintf("cannot Sqrt negative number: %f", e)
+}
+
+func Sqrt(x float64) (float64, error) {
+	if x < 0 {
+		return 0, ErrNegativeSqrt(x)
 	}
+	return math.Sqrt(x), nil
+}
+
+func main() {
+	fmt.Println(Sqrt(2))
+	fmt.Println(Sqrt(-2))
 }
