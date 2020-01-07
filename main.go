@@ -1,15 +1,16 @@
 package main
 
 import (
-	"io"
-	"os"
-	"strings"
+	"log"
+	"net/http"
 
-	"github.com/zyc737347123/goPractice/base/structs"
+	"github.com/zyc737347123/goPractice/base/web"
 )
 
 func main() {
-	s := strings.NewReader("Lbh penpxrq gur pbqr!")
-	r := structs.Rot13Reader{R: s}
-	io.Copy(os.Stdout, &r)
+	var h web.Hello
+	err := http.ListenAndServe("localhost:5000", h)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
