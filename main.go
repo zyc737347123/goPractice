@@ -3,12 +3,17 @@
 package main
 
 import (
-	"os"
+	"fmt"
 
 	"github.com/zyc737347123/goPractice/base/funcs"
 )
 
 func main() {
-	files := os.Args[1:]
-	funcs.CountFilesLines(files)
+	// files := os.Args[1:]
+	// funcs.CountFilesLines(files)
+	f := funcs.Fibonacci()
+	for i := 1; i < 10; i++ {
+		fmt.Println(f())
+	}
+
 }
