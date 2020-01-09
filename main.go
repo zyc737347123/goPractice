@@ -2,18 +2,14 @@
 package main
 
 import (
-	"log"
-	"net/http"
-	"sync"
+	"fmt"
 
-	"github.com/zyc737347123/goPractice/base/web"
+	"github.com/zyc737347123/goPractice/base/funcs"
 )
 
-var mu sync.Mutex
-var count int
-
 func main() {
-	http.HandleFunc("/", web.PrintRequest)
-	http.HandleFunc("/gif", web.GetGif)
-	log.Fatal(http.ListenAndServe("localhost:8000", nil))
+	fmt.Println(funcs.PopCount0(5356565))
+	fmt.Println(funcs.PopCount1(5356565))
+	fmt.Println(funcs.PopCount2(5356565))
+	fmt.Println(funcs.PopCount3(5356565))
 }
