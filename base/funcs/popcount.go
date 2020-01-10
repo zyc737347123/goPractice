@@ -57,12 +57,22 @@ func PopCount2(x uint64) int {
 // PopCount3 returns the population count (number of set bits) of x.
 func PopCount3(x uint64) int {
 	res := 0
-	start := time.Now()
+	// start := time.Now()
 	for x != 0 {
 		res++
 		x = x & (x - 1)
 	}
-	nsecs := time.Since(start).Nanoseconds()
-	fmt.Printf("%d nsec ", nsecs)
+	// nsecs := time.Since(start).Nanoseconds()
+	// fmt.Printf("%d nsec ", nsecs)
+	return res
+}
+
+// SHACount is a func
+func SHACount(x1, x2 *[32]byte) int {
+	res := 0
+	for i := range x1 {
+		v := x1[i] ^ x2[i]
+		res += PopCount3(uint64(v))
+	}
 	return res
 }

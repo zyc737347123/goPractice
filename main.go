@@ -2,6 +2,7 @@
 package main
 
 import (
+	"crypto/sha256"
 	"fmt"
 
 	"github.com/zyc737347123/goPractice/base/funcs"
@@ -9,6 +10,7 @@ import (
 
 func main() {
 	fmt.Println(funcs.Comma1("-12345"))
-	fmt.Println(funcs.Comma2("12345.3242"))
-	fmt.Println(funcs.CompareByte("3322", "2332"))
+	x1 := sha256.Sum256([]byte("ajjjjjj"))
+	x2 := sha256.Sum256([]byte("ajjjjjjj"))
+	fmt.Println(funcs.SHACount(&x1, &x2))
 }
