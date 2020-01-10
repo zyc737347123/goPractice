@@ -8,8 +8,7 @@ import (
 )
 
 func main() {
-	fmt.Println(funcs.PopCount0(5356565))
-	fmt.Println(funcs.PopCount1(5356565))
-	fmt.Println(funcs.PopCount2(5356565))
-	fmt.Println(funcs.PopCount3(5356565))
+	fmt.Println(funcs.Comma1("-12345"))
+	fmt.Println(funcs.Comma2("12345.3242"))
+	fmt.Println(funcs.CompareByte("3322", "2332"))
 }
