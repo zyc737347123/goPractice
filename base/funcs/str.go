@@ -1,7 +1,10 @@
 package funcs
 
 import (
+	"bufio"
 	"bytes"
+	"fmt"
+	"os"
 	"strings"
 )
 
@@ -62,4 +65,21 @@ func comma(s string) string {
 		buf.WriteByte(s[i])
 	}
 	return buf.String()
+}
+
+// Wordfreq will count all word freq
+func Wordfreq(filename string) {
+	m := make(map[string]int)
+	f, err := os.Open(filename)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "%v\n", err)
+	}
+	input := bufio.NewScanner(f)
+	input.Split(bufio.ScanWords)
+
+	for input.Scan() {
+		m[input.Text()]++
+	}
+
+	fmt.Println(m)
 }
