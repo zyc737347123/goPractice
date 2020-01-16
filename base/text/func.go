@@ -17,7 +17,7 @@ func daysAgo(t time.Time) int {
 func Report1(result *web.IssuesSearchResult) {
 	var report = template.Must(template.New("issuelist").
 		Funcs(template.FuncMap{"daysAgo": daysAgo}).
-		Parse(templ))
+		Parse(htmlTempl))
 
 	if err := report.Execute(os.Stdout, result); err != nil {
 		log.Fatal(err)
