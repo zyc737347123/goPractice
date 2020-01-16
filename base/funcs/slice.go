@@ -1,7 +1,10 @@
 package funcs
 
+import "fmt"
+
 // Reverse reverses a slice of ints in place.
 func Reverse(s []int) {
+	fmt.Printf("%p\n", s)
 	for i, j := 0, len(s)-1; i < j; i, j = i+1, j-1 {
 		s[i], s[j] = s[j], s[i]
 	}
