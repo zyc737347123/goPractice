@@ -32,3 +32,26 @@ func visit(links []string, n *html.Node) []string {
 	}
 	return links
 }
+
+func visitR(links []string, n *html.Node) []string {
+
+	if n == nil {
+		return links
+	}
+
+	if n.Type == html.ElementNode && n.Data == "a" {
+		for _, a := range n.Attr {
+			if a.Key == "href" {
+				links = append(links, a.Val)
+			}
+		}
+	}
+	// for c := n.FirstChild; c != nil; c = c.NextSibling {
+	// 	links = visit(links, c)
+	// }
+
+	links = visitR(links, n.FirstChild)
+	links = visitR(links, n.NextSibling)
+
+	return links
+}
