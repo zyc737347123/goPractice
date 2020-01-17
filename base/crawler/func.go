@@ -117,4 +117,6 @@ func Visit3(file *os.File) {
 	for k, v := range visit3(nil, doc) {
 		fmt.Println(k, v)
 	}
+
+	fmt.Println("finish")
 }
