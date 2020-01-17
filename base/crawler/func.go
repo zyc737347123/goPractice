@@ -84,7 +84,10 @@ func Count(file *os.File) {
 		fmt.Fprintf(os.Stderr, "findlinks1: %v\n", err)
 		os.Exit(1)
 	}
-	for k, v := range count(nil, doc) {
+
+	p := make(map[string]int)
+
+	for k, v := range count(p, doc) {
 		fmt.Println(k, v)
 	}
 }
