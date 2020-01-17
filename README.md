@@ -1,5 +1,5 @@
 # goPractice
-go practice with GOPATH (old way)
+go practice with go1.13 and Go Modules
 
 ## 1. 目前进度（The go program language）
 
