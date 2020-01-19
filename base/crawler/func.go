@@ -7,28 +7,32 @@ import (
 	"golang.org/x/net/html"
 )
 
-// Visit is func
-func Visit(file *os.File) {
-	doc, err := html.Parse(file)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "findlinks1: %v\n", err)
-		os.Exit(1)
-	}
-	for _, link := range visit(nil, doc) {
-		fmt.Println(link)
-	}
-}
+type visitF func(links []string, n *html.Node) []string
 
-// VisitR is func
-func VisitR(file *os.File) {
+// Visit is func
+func Visit(file *os.File, option string) {
 	doc, err := html.Parse(file)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "findlinks1: %v\n", err)
 		os.Exit(1)
 	}
-	for _, link := range visitR(nil, doc) {
-		fmt.Println(link)
+
+	var v visitF = visit
+
+	switch option {
+	case "visit":
+		v = visit
+	case "visitR":
+		v = visitR
+	case "visit3":
+		v = visit3
 	}
+
+	for i, link := range v(nil, doc) {
+		fmt.Println(i, link)
+	}
+
+	fmt.Println("finish")
 }
 
 // visit appends to links each link found in n and returns the result.
@@ -105,18 +109,4 @@ func visit3(texts []string, n *html.Node) []string {
 		texts = visit3(texts, c)
 	}
 	return texts
-}
-
-// Visit3 is a func
-func Visit3(file *os.File) {
-	doc, err := html.Parse(file)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "findlinks1: %v\n", err)
-		os.Exit(1)
-	}
-	for k, v := range visit3(nil, doc) {
-		fmt.Println(k, v)
-	}
-
-	fmt.Println("finish")
 }

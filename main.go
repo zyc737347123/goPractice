@@ -7,5 +7,5 @@ import (
 )
 
 func main() {
-	crawler.Visit3(os.Stdin)
+	crawler.Visit(os.Stdin, "visit3")
 }
