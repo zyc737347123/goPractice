@@ -83,3 +83,20 @@ func Wordfreq(filename string) {
 
 	fmt.Println(m)
 }
+
+func expand(s string, f func(string) string) string {
+	var buf bytes.Buffer
+	n := len(s)
+
+	for i := 0; i < n; {
+		if i+3 < n && s[i:i+3] == "foo" {
+			ns := f(s[i : i+3])
+			buf.WriteString(ns)
+			i += 3
+		} else {
+			buf.WriteByte(s[i])
+			i++
+		}
+	}
+	return buf.String()
+}
