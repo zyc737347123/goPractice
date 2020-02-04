@@ -4,9 +4,9 @@ import (
 	"os"
 
 	"github.com/zyc737347123/goPractice/base/crawler"
+	"github.com/zyc737347123/goPractice/base/funcs"
 )
 
 func main() {
-	doc, _ := crawler.FindLinks2(os.Args[1])
-	crawler.ForEachNode(doc, crawler.StartElement, crawler.EndElement)
+	funcs.BFS(crawler.Crawl, os.Args[1:])
 }
