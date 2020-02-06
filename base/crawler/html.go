@@ -91,3 +91,23 @@ func printAttr(n *html.Node) {
 		fmt.Printf(" %s='%s'", v.Key, v.Val)
 	}
 }
+
+// ElementByTagName will return tag name match nodes
+func ElementByTagName(n *html.Node, tags ...string) []*html.Node {
+	var res []*html.Node
+	var matchF func(*html.Node) bool
+
+	matchF = func(n *html.Node) bool {
+		if n.Type == html.ElementNode {
+			for _, v := range tags {
+				if v == n.Data {
+					res = append(res, n)
+				}
+			}
+		}
+		return true
+	}
+
+	ForEachNode(n, matchF, nil)
+	return res
+}

@@ -43,3 +43,23 @@ func CountFilesLines(files []string) {
 		}
 	}
 }
+
+func max(val int, vals ...int) int {
+	res := val
+	for _, v := range vals {
+		if res < v {
+			res = v
+		}
+	}
+	return res
+}
+
+func min(val int, vals ...int) int {
+	res := val
+	for _, v := range vals {
+		if res > v {
+			res = v
+		}
+	}
+	return res
+}
