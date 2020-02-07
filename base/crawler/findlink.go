@@ -3,7 +3,9 @@ package crawler
 import (
 	"fmt"
 	"net/http"
+	"strings"
 
+	"github.com/zyc737347123/goPractice/base/funcs"
 	"golang.org/x/net/html"
 )
 
@@ -80,4 +82,33 @@ func Extract(url string) ([]string, error) {
 	}
 	ForEachNode(doc, visitNode, nil)
 	return links, nil
+}
+
+// Title get all title elem node content
+func Title(url string) error {
+	defer funcs.Trace("Title")()
+	resp, err := http.Get(url)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	ct := resp.Header.Get("Content-Type")
+	if ct != "text/html" && !strings.HasPrefix(ct, "text/html") {
+		return fmt.Errorf("%s has type %s, not text/html", url, ct)
+	}
+
+	doc, err := html.Parse(resp.Body)
+	if err != nil {
+		return fmt.Errorf("parsing %s as HTML: %v", url, err)
+	}
+	visitNode := func(n *html.Node) bool {
+		if n.Type == html.ElementNode && n.Data == "title" && n.FirstChild != nil {
+			fmt.Println(n.FirstChild.Data)
+		}
+		return true
+	}
+
+	ForEachNode(doc, visitNode, nil)
+	return nil
 }

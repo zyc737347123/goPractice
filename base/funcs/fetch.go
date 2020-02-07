@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os"
+	"path"
 	"strings"
 	"time"
 )
@@ -42,6 +43,7 @@ func FetchAll(urls []string) {
 	}
 }
 
+// fetch use channel output result
 func fetch(url string, ch chan<- string) {
 	start := time.Now()
 	resp, err := http.Get(url)
@@ -57,4 +59,35 @@ func fetch(url string, ch chan<- string) {
 	}
 	secs := time.Since(start).Seconds()
 	ch <- fmt.Sprintf("%.2fs  %7d  %s", secs, nbytes, url)
+}
+
+// Fetch2 output result to file
+func Fetch2(url string) (filename string, n int64, err error) {
+	resp, err := http.Get(url)
+	if err != nil {
+		return "", 0, err
+	}
+	defer resp.Body.Close()
+
+	local := path.Base(resp.Request.URL.Path)
+	fmt.Println(local)
+	if local == "/" {
+		local = "index.html"
+	}
+
+	f, err := os.Create(local)
+	if err != nil {
+		return "", 0, err
+	}
+	defer func() {
+		if err == nil {
+			err = f.Close()
+			fmt.Println(err)
+		}
+	}()
+
+	n, err = io.Copy(f, resp.Body)
+
+	return local, n, err
+
 }
