@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 
+	"github.com/zyc737347123/goPractice/base/funcs"
 	"github.com/zyc737347123/goPractice/base/structs"
 )
 
@@ -26,5 +27,5 @@ func main() {
 	fmt.Println(test.Elems())
 
 	// to know 64 or 32 bit machice
-	fmt.Println(32 << (^uint(0) >> 63))
+	fmt.Println(funcs.Is64())
 }
