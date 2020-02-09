@@ -24,4 +24,7 @@ func main() {
 	test.UnionWith(t2)
 	fmt.Println(test, test.Len())
 	fmt.Println(test.Elems())
+
+	// to know 64 or 32 bit machice
+	fmt.Println(32 << (^uint(0) >> 63))
 }

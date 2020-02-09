@@ -57,6 +57,17 @@ func (s *IntSet) IntersectWith(t *IntSet) {
 	}
 }
 
+// DifferenceWith set s to the difference of s and t
+func (s *IntSet) DifferenceWith(t *IntSet) {
+	elem := t.Elems()
+	for _, x := range elem {
+		s.Remove(x)
+	}
+}
+
+// SymmetricDifferenceWith, R = (A U B) - (A ∩ B)
+// don't impl
+
 // String returns the set as a string of the form "{1 2 3}"
 func (s *IntSet) String() string {
 	var buf bytes.Buffer
