@@ -64,6 +64,7 @@ func Extract(url string) ([]string, error) {
 		return nil, fmt.Errorf("parsing %s as HTML: %v", url, err)
 	}
 
+	// 闭包的一个用途
 	var links []string
 	visitNode := func(n *html.Node) bool {
 		if n.Type == html.ElementNode && n.Data == "a" {
